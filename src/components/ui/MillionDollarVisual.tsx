@@ -2,222 +2,269 @@
 
 import { memo, useRef, useMemo, Suspense } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { PerspectiveCamera, Float } from "@react-three/drei";
+import { PerspectiveCamera } from "@react-three/drei";
 import { EffectComposer, Bloom, Vignette } from "@react-three/postprocessing";
 import * as THREE from "three";
 
-// Black hole core with event horizon glow
-function BlackHoleCore() {
-    const coreRef = useRef<THREE.Mesh>(null);
-    const glowRef = useRef<THREE.Mesh>(null);
-
-    useFrame((state) => {
-        if (coreRef.current) {
-            coreRef.current.rotation.z += 0.002;
-        }
-        if (glowRef.current) {
-            const scale = 1 + Math.sin(state.clock.elapsedTime * 2) * 0.05;
-            glowRef.current.scale.setScalar(scale);
-        }
-    });
-
-    return (
-        <group>
-            {/* Event horizon - pure black */}
-            <mesh ref={coreRef}>
-                <sphereGeometry args={[1.2, 64, 64]} />
-                <meshBasicMaterial color="#000000" />
-            </mesh>
-
-            {/* Accretion disk glow */}
-            <mesh ref={glowRef} rotation={[Math.PI / 2, 0, 0]}>
-                <torusGeometry args={[1.8, 0.4, 32, 128]} />
-                <meshStandardMaterial
-                    color="#3b82f6"
-                    emissive="#1e40af"
-                    emissiveIntensity={2}
-                    transparent
-                    opacity={0.7}
-                    side={THREE.DoubleSide}
-                />
-            </mesh>
-
-            {/* Outer glow ring */}
-            <mesh rotation={[Math.PI / 2, 0, 0]}>
-                <torusGeometry args={[2.2, 0.15, 16, 128]} />
-                <meshStandardMaterial
-                    color="#60a5fa"
-                    emissive="#3b82f6"
-                    emissiveIntensity={1.5}
-                    transparent
-                    opacity={0.5}
-                />
-            </mesh>
-        </group>
-    );
-}
-
-// Orbiting electrons (atomic style)
-function AtomicOrbitals() {
-    const orbitalsRef = useRef<THREE.Group>(null);
-    const electron1Ref = useRef<THREE.Mesh>(null);
-    const electron2Ref = useRef<THREE.Mesh>(null);
-    const electron3Ref = useRef<THREE.Mesh>(null);
+// Interstellar-style black hole with golden accretion disk
+function InterstellarBlackHole() {
+    const accretionDiskRef = useRef<THREE.Mesh>(null);
+    const innerRingRef = useRef<THREE.Mesh>(null);
+    const verticalRingRef = useRef<THREE.Mesh>(null);
 
     useFrame((state) => {
         const t = state.clock.elapsedTime;
 
-        // Electron 1 - horizontal orbit
-        if (electron1Ref.current) {
-            const radius = 2.8;
-            electron1Ref.current.position.x = Math.cos(t * 1.5) * radius;
-            electron1Ref.current.position.z = Math.sin(t * 1.5) * radius;
-            electron1Ref.current.position.y = Math.sin(t * 3) * 0.3;
+        // Main accretion disk rotation
+        if (accretionDiskRef.current) {
+            accretionDiskRef.current.rotation.z += 0.002;
         }
 
-        // Electron 2 - tilted orbit
-        if (electron2Ref.current) {
-            const radius = 3.2;
-            electron2Ref.current.position.x = Math.cos(t * 1.2 + Math.PI * 0.66) * radius;
-            electron2Ref.current.position.y = Math.sin(t * 1.2 + Math.PI * 0.66) * radius * 0.7;
-            electron2Ref.current.position.z = Math.cos(t * 1.2 + Math.PI * 0.66) * radius * 0.5;
+        // Inner ring counter-rotation
+        if (innerRingRef.current) {
+            innerRingRef.current.rotation.z -= 0.003;
         }
 
-        // Electron 3 - vertical orbit
-        if (electron3Ref.current) {
-            const radius = 3.5;
-            electron3Ref.current.position.y = Math.cos(t * 0.9 + Math.PI * 1.33) * radius;
-            electron3Ref.current.position.z = Math.sin(t * 0.9 + Math.PI * 1.33) * radius;
-            electron3Ref.current.position.x = Math.sin(t * 1.8) * 0.4;
+        // Vertical ring (photon sphere) wobble
+        if (verticalRingRef.current) {
+            verticalRingRef.current.rotation.y += 0.001;
+            verticalRingRef.current.rotation.x = Math.sin(t * 0.3) * 0.1;
         }
     });
 
     return (
-        <group ref={orbitalsRef}>
-            {/* Orbital paths */}
-            <mesh rotation={[Math.PI / 2, 0, 0]}>
-                <torusGeometry args={[2.8, 0.01, 16, 128]} />
-                <meshBasicMaterial color="#3b82f6" transparent opacity={0.3} />
-            </mesh>
-            <mesh rotation={[Math.PI / 3, Math.PI / 4, 0]}>
-                <torusGeometry args={[3.2, 0.01, 16, 128]} />
-                <meshBasicMaterial color="#60a5fa" transparent opacity={0.3} />
-            </mesh>
-            <mesh rotation={[0, 0, Math.PI / 6]}>
-                <torusGeometry args={[3.5, 0.01, 16, 128]} />
-                <meshBasicMaterial color="#93c5fd" transparent opacity={0.3} />
+        <group position={[1.5, 0, 0]}>
+            {/* Core singularity - absolute black */}
+            <mesh>
+                <sphereGeometry args={[0.9, 64, 64]} />
+                <meshBasicMaterial color="#000000" />
             </mesh>
 
-            {/* Electrons */}
-            <mesh ref={electron1Ref}>
-                <sphereGeometry args={[0.12, 32, 32]} />
-                <meshStandardMaterial
-                    color="#60a5fa"
-                    emissive="#3b82f6"
-                    emissiveIntensity={3}
+            {/* Event horizon shell */}
+            <mesh>
+                <sphereGeometry args={[0.95, 64, 64]} />
+                <meshBasicMaterial
+                    color="#0a0a0a"
+                    transparent
+                    opacity={0.8}
                 />
             </mesh>
-            <mesh ref={electron2Ref}>
-                <sphereGeometry args={[0.1, 32, 32]} />
+
+            {/* Main accretion disk - golden/yellow */}
+            <mesh ref={accretionDiskRef} rotation={[Math.PI / 2, 0, 0]}>
+                <torusGeometry args={[1.8, 0.35, 32, 128]} />
                 <meshStandardMaterial
-                    color="#93c5fd"
-                    emissive="#60a5fa"
-                    emissiveIntensity={3}
+                    color="#d4a523"
+                    emissive="#b8860b"
+                    emissiveIntensity={0.8}
+                    metalness={0.3}
+                    roughness={0.5}
+                    transparent
+                    opacity={0.85}
+                    side={THREE.DoubleSide}
                 />
             </mesh>
-            <mesh ref={electron3Ref}>
-                <sphereGeometry args={[0.08, 32, 32]} />
+
+            {/* Inner hot ring - brighter gold */}
+            <mesh ref={innerRingRef} rotation={[Math.PI / 2, 0, 0]}>
+                <torusGeometry args={[1.3, 0.15, 32, 128]} />
                 <meshStandardMaterial
-                    color="#bfdbfe"
-                    emissive="#93c5fd"
-                    emissiveIntensity={3}
+                    color="#ffd700"
+                    emissive="#ffa500"
+                    emissiveIntensity={1.2}
+                    metalness={0.2}
+                    roughness={0.4}
+                    transparent
+                    opacity={0.9}
+                />
+            </mesh>
+
+            {/* Vertical photon ring (Interstellar signature look) */}
+            <mesh ref={verticalRingRef}>
+                <torusGeometry args={[1.6, 0.08, 16, 128]} />
+                <meshStandardMaterial
+                    color="#daa520"
+                    emissive="#cd853f"
+                    emissiveIntensity={0.6}
+                    transparent
+                    opacity={0.5}
+                />
+            </mesh>
+
+            {/* Outer faint ring */}
+            <mesh rotation={[Math.PI / 2, 0, 0]}>
+                <torusGeometry args={[2.4, 0.05, 16, 128]} />
+                <meshBasicMaterial
+                    color="#8b7355"
+                    transparent
+                    opacity={0.25}
+                />
+            </mesh>
+
+            {/* Gravitational lensing halo */}
+            <mesh rotation={[Math.PI / 2, 0, 0]}>
+                <torusGeometry args={[2.8, 0.02, 16, 128]} />
+                <meshBasicMaterial
+                    color="#666666"
+                    transparent
+                    opacity={0.15}
                 />
             </mesh>
         </group>
     );
 }
 
-// Spiraling particles being pulled into black hole
-function GravitationalParticles() {
+// Particles spiraling into black hole
+function SpiralParticles() {
     const particlesRef = useRef<THREE.Points>(null);
-    const particleCount = 600;
+    const particleCount = 700;
 
-    const { positions, velocities } = useMemo(() => {
-        const pos = new Float32Array(particleCount * 3);
-        const vel = new Float32Array(particleCount * 3);
+    const blackHoleX = 1.5;
+    const blackHoleY = 0;
+    const blackHoleRadius = 0.9;
+
+    const { geometry, velocities, angularVelocities } = useMemo(() => {
+        const geo = new THREE.BufferGeometry();
+        const positions = new Float32Array(particleCount * 3);
+        const sizes = new Float32Array(particleCount);
+        const vel = new Float32Array(particleCount * 2);
+        const angVel = new Float32Array(particleCount);
 
         for (let i = 0; i < particleCount; i++) {
             const i3 = i * 3;
-            const angle = Math.random() * Math.PI * 2;
-            const radius = 3 + Math.random() * 3;
-            const height = (Math.random() - 0.5) * 2;
+            const i2 = i * 2;
 
-            pos[i3] = Math.cos(angle) * radius;
-            pos[i3 + 1] = height;
-            pos[i3 + 2] = Math.sin(angle) * radius;
+            // Scatter across entire screen
+            const x = (Math.random() - 0.5) * 18;
+            const y = (Math.random() - 0.5) * 12;
+            const z = (Math.random() - 0.5) * 4;
 
-            // Orbital velocity
-            vel[i3] = -Math.sin(angle) * 0.02;
-            vel[i3 + 1] = (Math.random() - 0.5) * 0.005;
-            vel[i3 + 2] = Math.cos(angle) * 0.02;
+            positions[i3] = x;
+            positions[i3 + 1] = y;
+            positions[i3 + 2] = z;
+
+            sizes[i] = 0.6 + Math.random() * 0.5;
+
+            // Initial orbital velocity
+            const dx = blackHoleX - x;
+            const dy = blackHoleY - y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            const speed = 0.002 + Math.random() * 0.002;
+            vel[i2] = -dy / dist * speed;
+            vel[i2 + 1] = dx / dist * speed;
+
+            angVel[i] = 0.0004 + Math.random() * 0.0008;
         }
 
-        return { positions: pos, velocities: vel };
+        geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        geo.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+
+        return { geometry: geo, velocities: vel, angularVelocities: angVel };
     }, []);
 
-    const geometry = useMemo(() => {
-        const geo = new THREE.BufferGeometry();
-        geo.setAttribute('position', new THREE.BufferAttribute(positions.slice(), 3));
-        return geo;
-    }, [positions]);
-
     useFrame(() => {
-        if (particlesRef.current) {
-            const pos = particlesRef.current.geometry.attributes.position.array as Float32Array;
+        if (!particlesRef.current) return;
 
-            for (let i = 0; i < particleCount; i++) {
-                const i3 = i * 3;
+        const positions = particlesRef.current.geometry.attributes.position.array as Float32Array;
+        const sizes = particlesRef.current.geometry.attributes.size.array as Float32Array;
 
-                // Get current position
-                const x = pos[i3];
-                const y = pos[i3 + 1];
-                const z = pos[i3 + 2];
+        for (let i = 0; i < particleCount; i++) {
+            const i3 = i * 3;
+            const i2 = i * 2;
 
-                // Calculate distance from center
-                const dist = Math.sqrt(x * x + y * y + z * z);
+            const x = positions[i3];
+            const y = positions[i3 + 1];
 
-                // Gravitational pull toward center
-                const pullStrength = 0.0003 / (dist * dist + 0.1);
+            const dx = blackHoleX - x;
+            const dy = blackHoleY - y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
 
-                // Update with orbital motion + pull
-                pos[i3] += velocities[i3] - (x / dist) * pullStrength;
-                pos[i3 + 1] += velocities[i3 + 1] - (y / dist) * pullStrength * 0.5;
-                pos[i3 + 2] += velocities[i3 + 2] - (z / dist) * pullStrength;
+            const nx = dx / dist;
+            const ny = dy / dist;
 
-                // Reset if too close to center
-                if (dist < 1.5) {
-                    const angle = Math.random() * Math.PI * 2;
-                    const newRadius = 5 + Math.random() * 2;
-                    pos[i3] = Math.cos(angle) * newRadius;
-                    pos[i3 + 1] = (Math.random() - 0.5) * 2;
-                    pos[i3 + 2] = Math.sin(angle) * newRadius;
-                }
+            // Gravitational pull
+            const gravity = 0.00006 / (dist * dist + 0.1);
+
+            velocities[i2] += nx * gravity;
+            velocities[i2 + 1] += ny * gravity;
+
+            // Orbital motion
+            velocities[i2] += -ny * angularVelocities[i];
+            velocities[i2 + 1] += nx * angularVelocities[i];
+
+            positions[i3] += velocities[i2];
+            positions[i3 + 1] += velocities[i2 + 1];
+            positions[i3 + 2] *= 0.998;
+
+            // Stretch effect
+            if (dist < 3) {
+                sizes[i] = Math.max(0.15, (dist / 3) * 0.7);
             }
 
-            particlesRef.current.geometry.attributes.position.needsUpdate = true;
-            particlesRef.current.rotation.y += 0.001;
+            // Respawn when absorbed
+            if (dist < blackHoleRadius) {
+                const edge = Math.floor(Math.random() * 4);
+                switch (edge) {
+                    case 0: positions[i3] = -9; positions[i3 + 1] = (Math.random() - 0.5) * 12; break;
+                    case 1: positions[i3] = 9; positions[i3 + 1] = (Math.random() - 0.5) * 12; break;
+                    case 2: positions[i3] = (Math.random() - 0.5) * 18; positions[i3 + 1] = 6; break;
+                    case 3: positions[i3] = (Math.random() - 0.5) * 18; positions[i3 + 1] = -6; break;
+                }
+                positions[i3 + 2] = (Math.random() - 0.5) * 4;
+
+                const newDx = blackHoleX - positions[i3];
+                const newDy = blackHoleY - positions[i3 + 1];
+                const newDist = Math.sqrt(newDx * newDx + newDy * newDy);
+                const speed = 0.002 + Math.random() * 0.002;
+                velocities[i2] = -newDy / newDist * speed;
+                velocities[i2 + 1] = newDx / newDist * speed;
+                sizes[i] = 0.6 + Math.random() * 0.5;
+            }
         }
+
+        particlesRef.current.geometry.attributes.position.needsUpdate = true;
+        particlesRef.current.geometry.attributes.size.needsUpdate = true;
     });
 
     return (
         <points ref={particlesRef} geometry={geometry}>
             <pointsMaterial
-                size={0.04}
-                color="#60a5fa"
+                size={0.03}
+                color="#ffffff"
                 transparent
-                opacity={0.8}
+                opacity={0.85}
                 sizeAttenuation
                 blending={THREE.AdditiveBlending}
+            />
+        </points>
+    );
+}
+
+// Faint background stars
+function BackgroundStars() {
+    const geometry = useMemo(() => {
+        const geo = new THREE.BufferGeometry();
+        const positions = new Float32Array(350 * 3);
+
+        for (let i = 0; i < 350; i++) {
+            const i3 = i * 3;
+            positions[i3] = (Math.random() - 0.5) * 30;
+            positions[i3 + 1] = (Math.random() - 0.5) * 20;
+            positions[i3 + 2] = -10 - Math.random() * 10;
+        }
+
+        geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        return geo;
+    }, []);
+
+    return (
+        <points geometry={geometry}>
+            <pointsMaterial
+                size={0.01}
+                color="#555555"
+                transparent
+                opacity={0.2}
             />
         </points>
     );
@@ -226,38 +273,38 @@ function GravitationalParticles() {
 function Scene() {
     return (
         <>
-            <PerspectiveCamera makeDefault position={[0, 2, 8]} fov={50} />
-            <ambientLight intensity={0.1} />
-            <pointLight position={[5, 5, 5]} intensity={0.5} color="#3b82f6" />
-            <pointLight position={[-5, -5, 5]} intensity={0.3} color="#60a5fa" />
+            <PerspectiveCamera makeDefault position={[0, 0, 9]} fov={60} />
+            <ambientLight intensity={0.05} />
+            <pointLight position={[5, 3, 5]} intensity={0.5} color="#ffd700" />
+            <pointLight position={[-5, -3, 5]} intensity={0.2} color="#daa520" />
 
-            <Float speed={0.5} rotationIntensity={0.1} floatIntensity={0.2}>
-                <group rotation={[0.2, 0, 0.1]}>
-                    <BlackHoleCore />
-                    <AtomicOrbitals />
-                    <GravitationalParticles />
-                </group>
-            </Float>
+            <InterstellarBlackHole />
+            <SpiralParticles />
+            <BackgroundStars />
 
             <EffectComposer>
                 <Bloom
-                    luminanceThreshold={0.1}
+                    luminanceThreshold={0.3}
                     luminanceSmoothing={0.9}
-                    intensity={2.5}
-                    radius={0.8}
+                    intensity={1.5}
+                    radius={0.7}
                 />
-                <Vignette offset={0.3} darkness={0.7} />
+                <Vignette offset={0.2} darkness={0.85} />
             </EffectComposer>
         </>
     );
 }
 
-function BlackHoleAtomVisualComponent() {
+function InterstellarBlackHoleComponent() {
     return (
-        <div className="w-full h-[500px] relative">
+        <div className="w-full h-[550px] relative">
             <Canvas
-                style={{ background: "transparent" }}
-                gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+                style={{ background: "#000000" }}
+                gl={{
+                    antialias: true,
+                    alpha: false,
+                    powerPreference: "high-performance"
+                }}
                 dpr={[1, 2]}
             >
                 <Suspense fallback={null}>
@@ -268,4 +315,4 @@ function BlackHoleAtomVisualComponent() {
     );
 }
 
-export const MillionDollarVisual = memo(BlackHoleAtomVisualComponent);
+export const MillionDollarVisual = memo(InterstellarBlackHoleComponent);

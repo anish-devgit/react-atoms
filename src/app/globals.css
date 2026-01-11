@@ -1,48 +1,50 @@
 @import "tailwindcss";
 
 :root {
-  /* === BACKGROUNDS === */
-  --background: #000000;
-  /* Pure black for React Email style */
-  --background-secondary: #0A0A0A;
-  /* Slightly lighter for elevation */
-  --background-tertiary: #141414;
-  /* Highest elevation */
+  /* === CINEMATIC DARK THEME === */
 
-  /* === SURFACES === */
-  --surface-default: rgba(255, 255, 255, 0.04);
-  /* Cards, panels */
-  --surface-hover: rgba(255, 255, 255, 0.06);
+  /* === BACKGROUNDS (Pure void) === */
+  --background: #000000;
+  /* Absolute black */
+  --background-secondary: #050505;
+  /* Near black */
+  --background-tertiary: #0a0a0a;
+  /* Subtle elevation */
+
+  /* === SURFACES (Dark glass) === */
+  --surface-default: rgba(255, 255, 255, 0.03);
+  /* Subtle white */
+  --surface-hover: rgba(255, 255, 255, 0.05);
   /* Interactive hover */
   --surface-active: rgba(255, 255, 255, 0.08);
   /* Active selection */
 
-  /* === BORDERS === */
-  --border-subtle: rgba(255, 255, 255, 0.08);
+  /* === BORDERS (Minimal) === */
+  --border-subtle: rgba(255, 255, 255, 0.06);
   /* Dividers */
-  --border: rgba(255, 255, 255, 0.15);
+  --border: rgba(255, 255, 255, 0.12);
   /* Default borders */
-  --border-strong: rgba(255, 255, 255, 0.25);
+  --border-strong: rgba(255, 255, 255, 0.20);
   /* Emphasized */
 
-  /* === TEXT === */
-  --foreground: #FAFAFA;
+  /* === TEXT (Crisp white) === */
+  --foreground: #FFFFFF;
   /* Headings, primary text */
-  --foreground-secondary: #D4D4D8;
+  --foreground-secondary: #E5E5E5;
   /* Body text */
-  --foreground-muted: #A1A1AA;
+  --foreground-muted: #999999;
   /* Secondary info */
-  --foreground-disabled: #71717A;
+  --foreground-disabled: #666666;
   /* Disabled state */
 
-  /* === ACCENT (Professional Blue) === */
-  --accent: #3B82F6;
-  /* Primary blue */
-  --accent-secondary: #2563EB;
+  /* === ACCENT (Pure white) === */
+  --accent: #FFFFFF;
+  /* Primary white */
+  --accent-secondary: #E5E5E5;
   /* Hover state */
-  --accent-subtle: rgba(59, 130, 246, 0.10);
+  --accent-subtle: rgba(255, 255, 255, 0.08);
   /* Backgrounds */
-  --accent-border: rgba(59, 130, 246, 0.30);
+  --accent-border: rgba(255, 255, 255, 0.20);
   /* Borders */
 
   /* === SEMANTIC === */

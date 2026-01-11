@@ -2,22 +2,26 @@
 
 import { memo } from "react";
 
-function BlueVignetteComponent() {
+function CosmicVignetteComponent() {
     return (
-        <div className="fixed inset-0 pointer-events-none z-0">
-            {/* Top vignette */}
-            <div className="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-blue-500/10 to-transparent" />
+        <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+            {/* Deep space vignette - all edges */}
+            <div
+                className="absolute inset-0"
+                style={{
+                    background: "radial-gradient(ellipse at center, transparent 0%, transparent 40%, rgba(0,0,0,0.4) 80%, rgba(0,0,0,0.8) 100%)"
+                }}
+            />
 
-            {/* Bottom vignette */}
-            <div className="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-blue-500/10 to-transparent" />
-
-            {/* Left vignette */}
-            <div className="absolute top-0 left-0 h-full w-64 bg-gradient-to-r from-blue-500/10 to-transparent" />
-
-            {/* Right vignette */}
-            <div className="absolute top-0 right-0 h-full w-64 bg-gradient-to-l from-blue-500/10 to-transparent" />
+            {/* Subtle center glow - very faint white */}
+            <div
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[100vh] opacity-10"
+                style={{
+                    background: "radial-gradient(ellipse at center, rgba(255,255,255,0.1) 0%, transparent 50%)"
+                }}
+            />
         </div>
     );
 }
 
-export const BlueVignette = memo(BlueVignetteComponent);
+export const BlueVignette = memo(CosmicVignetteComponent);
