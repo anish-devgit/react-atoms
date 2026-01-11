@@ -30,14 +30,6 @@ export const metadata: Metadata = {
     "TypeScript",
   ],
   authors: [{ name: "ReactAtoms" }],
-  icons: {
-    icon: [
-      { url: "/favicon.png", sizes: "any" },
-      { url: "/icon.png", sizes: "512x512", type: "image/png" },
-    ],
-    shortcut: "/favicon.png",
-    apple: "/logo.png",
-  },
   openGraph: {
     title: "ReactAtoms - Atomic React Components",
     description:

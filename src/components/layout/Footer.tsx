@@ -15,7 +15,7 @@ const navigation = {
         { name: "Roadmap", href: "/roadmap" },
     ],
     community: [
-        { name: "GitHub", href: "https://github.com/reactatoms/reactatoms", external: true },
+        { name: "GitHub", href: "https://github.com/anish-devgit/react-atoms", external: true },
         { name: "Twitter", href: "https://twitter.com/reactatoms", external: true },
         { name: "Discord", href: "https://discord.gg/reactatoms", external: true },
     ],
@@ -42,7 +42,7 @@ export function Footer() {
                         </p>
                         <div className="flex gap-4">
                             <a
-                                href="https://github.com/reactatoms/reactatoms"
+                                href="https://github.com/anish-devgit/react-atoms"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="p-2 rounded-lg hover:bg-white/5 transition-colors"

@@ -3,7 +3,7 @@
 import { memo } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, Copy, Layers, Sparkles, Zap } from "lucide-react";
+import { ArrowRight, Copy, Layers, Sparkles, Zap, Star } from "lucide-react";
 import { AnimatedBackground } from "@/components/ui/AnimatedBackground";
 
 const features = [
@@ -94,12 +94,13 @@ function HeroComponent() {
                         <ArrowRight className="w-5 h-5 transition-transform duration-200 group-hover:translate-x-1" />
                     </Link>
                     <a
-                        href="https://github.com/reactatoms/reactatoms"
+                        href="https://github.com/anish-devgit/react-atoms"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 px-8 py-4 rounded-xl border border-border text-foreground font-medium text-lg transition-all duration-200 hover:bg-white/5 hover:border-white/20"
                     >
-                        View on GitHub
+                        <Star className="w-5 h-5 text-yellow-400 fill-current" />
+                        Star on GitHub
                     </a>
                 </motion.div>
 
