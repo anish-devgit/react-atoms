@@ -30,32 +30,21 @@ export function Header() {
             initial={{ y: -100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-                ? "py-2 backdrop-blur-xl bg-background/80"
-                : "py-4 backdrop-blur-md bg-background/60"
+            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b ${isScrolled
+                ? "py-2 backdrop-blur-xl bg-background/90 border-border"
+                : "py-4 backdrop-blur-md bg-background/70 border-border-subtle"
                 }`}
         >
-            {/* Subtle bottom border glow */}
-            <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-accent/20 to-transparent" />
-
             <div className="max-w-6xl mx-auto px-4 sm:px-6">
                 <div className="flex items-center justify-between">
                     {/* Logo - Left */}
                     <Link href="/" className="flex items-center gap-2.5 group">
-                        <div className="relative">
-                            <motion.div
-                                whileHover={{ scale: 1.05 }}
-                                transition={{ duration: 0.2 }}
-                                className="w-7 h-7 rounded-lg overflow-hidden"
-                            >
-                                <img
-                                    src="/logo.png"
-                                    alt="ReactAtoms"
-                                    className="w-full h-full object-contain"
-                                />
-                            </motion.div>
-                            {/* Subtle glow on hover */}
-                            <div className="absolute inset-0 rounded-lg bg-accent/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        <div className="w-7 h-7 rounded-lg overflow-hidden">
+                            <img
+                                src="/logo.png"
+                                alt="ReactAtoms"
+                                className="w-full h-full object-contain"
+                            />
                         </div>
                         <span className="text-base font-semibold text-foreground group-hover:text-accent transition-colors duration-200">
                             ReactAtoms
@@ -63,7 +52,7 @@ export function Header() {
                     </Link>
 
                     {/* Navigation - Center (Desktop) */}
-                    <nav className="hidden md:flex items-center gap-1 px-1 py-1 rounded-full bg-white/[0.03] border border-white/[0.06]">
+                    <nav className="hidden md:flex items-center gap-1 px-1 py-1 rounded-full bg-surface-default border border-border">
                         {navLinks.map((link) => {
                             const isActive = pathname === link.href ||
                                 (link.href !== "/" && pathname.startsWith(link.href));

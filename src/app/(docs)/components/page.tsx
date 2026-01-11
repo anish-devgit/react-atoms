@@ -140,10 +140,9 @@ function ComponentsContent() {
 
             {/* New Components Highlight */}
             {newComponents.length > 0 && (
-                <div className="mb-12 p-6 rounded-2xl bg-gradient-to-r from-accent/5 via-accent/5 to-transparent border border-accent/10 relative overflow-hidden group">
-                    <div className="absolute inset-0 bg-gradient-to-r from-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="mb-12 p-6 rounded-2xl bg-surface-default border border-border relative overflow-hidden">
                     <div className="relative flex items-center gap-2 mb-4">
-                        <div className="p-1.5 rounded-md bg-accent/10 border border-accent/20">
+                        <div className="p-1.5 rounded-md bg-accent-subtle border border-accent-border">
                             <Sparkles className="w-4 h-4 text-accent" />
                         </div>
                         <h2 className="text-lg font-semibold text-foreground">Recently Added</h2>
@@ -153,7 +152,7 @@ function ComponentsContent() {
                             <Link
                                 key={comp.slug}
                                 href={`/components/${comp.category}/${comp.slug}`}
-                                className="px-3.5 py-1.5 rounded-lg bg-background/50 border border-border text-sm text-foreground-muted hover:text-foreground hover:border-accent/30 hover:bg-white/5 transition-all"
+                                className="px-3.5 py-1.5 rounded-lg bg-background border border-border text-sm text-foreground-muted hover:text-foreground hover:border-accent-border hover:bg-surface-hover transition-all"
                             >
                                 {comp.name}
                             </Link>

@@ -49,8 +49,8 @@ function HeroComponent() {
                     transition={{ duration: 0.5 }}
                     className="flex justify-center mb-8"
                 >
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm">
-                        <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface-default border border-border text-sm">
+                        <span className="w-2 h-2 rounded-full bg-success animate-pulse" />
                         <span className="text-foreground-muted">Open Source • MIT Licensed</span>
                     </div>
                 </motion.div>
@@ -60,14 +60,14 @@ function HeroComponent() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.1 }}
-                    className="text-5xl sm:text-6xl md:text-7xl font-bold text-foreground mb-8 leading-[1.1] tracking-tight"
+                    className="text-5xl sm:text-6xl lg:text-7xl font-bold text-foreground mb-6 tracking-tight"
                 >
                     Components that
                     <br />
-                    <span className="gradient-text">just work.</span>
+                    <span className="text-accent">just work.</span>
                 </motion.h1>
 
-                {/* Subheadline */}
+                {/* Subtitle */}
                 <motion.p
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -88,7 +88,7 @@ function HeroComponent() {
                 >
                     <Link
                         href="/components"
-                        className="group flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-accent to-accent-secondary text-white font-medium text-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-xl shadow-lg shadow-accent/25"
+                        className="group flex items-center gap-2 px-8 py-4 rounded-xl bg-accent text-white font-medium text-lg transition-all duration-200 hover:bg-accent-secondary"
                     >
                         Browse Components
                         <ArrowRight className="w-5 h-5 transition-transform duration-200 group-hover:translate-x-1" />
@@ -97,7 +97,7 @@ function HeroComponent() {
                         href="https://github.com/anish-devgit/react-atoms"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 px-8 py-4 rounded-xl border border-border text-foreground font-medium text-lg transition-all duration-200 hover:bg-white/5 hover:border-white/20"
+                        className="flex items-center gap-2 px-8 py-4 rounded-xl border border-border text-foreground font-medium text-lg transition-all duration-200 hover:bg-surface-hover hover:border-border-strong"
                     >
                         <Star className="w-5 h-5 text-yellow-400 fill-current" />
                         Star on GitHub
@@ -129,7 +129,7 @@ function HeroComponent() {
                     {features.map((feature) => (
                         <div
                             key={feature.title}
-                            className="p-5 rounded-xl bg-white/[0.02] border border-border transition-all duration-200 hover:border-accent/30 hover:bg-white/[0.04]"
+                            className="p-5 rounded-xl bg-surface-default border border-border transition-all duration-200 hover:border-accent-border hover:bg-surface-hover"
                         >
                             <feature.icon className="w-5 h-5 text-accent mb-3 mx-auto" />
                             <h3 className="font-medium text-foreground text-sm mb-1">
