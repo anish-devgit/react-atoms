@@ -1,10 +1,49 @@
 "use client";
 
 import { memo } from "react";
-import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, Copy, Layers, Sparkles, Zap, Star } from "lucide-react";
-import { AnimatedBackground } from "@/components/ui/AnimatedBackground";
+import { ArrowRight } from "lucide-react";
+import { CodeSnippet } from "@/components/ui/CodeSnippet";
+
+function HeroComponent() {
+    return (
+        <section className="relative min-h-screen flex items-center overflow-hidden">
+            <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
+                <div className="grid lg:grid-cols-2 gap-12 items-center">
+                    {/* Left: Headline */}
+                    <div>
+                        <h1 className="text-6xl sm:text-7xl lg:text-8xl font-bold text-white mb-6 leading-[1.1] tracking-tight">
+                            The next generation of React components
+                        </h1>
+                        <p className="text-xl sm:text-2xl text-gray-400 mb-8 leading-relaxed max-w-xl">
+                            A collection of high-quality, copy-paste components for building beautiful interfaces using React and TypeScript.
+                        </p>
+
+                        {/* CTAs */}
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                            <Link
+                                href="/components"
+                                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white text-black font-semibold text-sm hover:bg-gray-200 transition-colors"
+                            >
+                                Explore components
+                                <ArrowRight className="w-4 h-4" />
+                            </Link>
+                            <CodeSnippet>npm install @reactatoms/components</CodeSnippet>
+                        </div>
+                    </div>
+
+                    {/* Right: Optional visual space */}
+                    <div className="hidden lg:block">
+                        {/* Could add component preview or leave minimal */}
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+export const Hero = memo(HeroComponent);
+
 
 const features = [
     {

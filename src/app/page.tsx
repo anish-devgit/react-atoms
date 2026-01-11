@@ -4,11 +4,15 @@ import { PopularComponents } from "@/components/landing/PopularComponents";
 import { Testimonials } from "@/components/landing/Testimonials";
 import { FinalCTA } from "@/components/landing/FinalCTA";
 import { Footer } from "@/components/layout/Footer";
+import { BlueVignette } from "@/components/ui/BlueVignette";
 
 export default function Home() {
   return (
     <>
-      {/* 1. Hero - Bold, centered headline */}
+      {/* Blue vignette background effect */}
+      <BlueVignette />
+
+      {/* 1. Hero - Left-aligned, two-column */}
       <Hero />
 
       {/* 2. Features - 2x2 value proposition grid */}

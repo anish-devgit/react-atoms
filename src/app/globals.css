@@ -2,11 +2,11 @@
 
 :root {
   /* === BACKGROUNDS === */
-  --background: #0D0D12;
-  /* Main canvas - neutral dark gray */
-  --background-secondary: #15151C;
-  /* Elevated surfaces */
-  --background-tertiary: #1C1C26;
+  --background: #000000;
+  /* Pure black for React Email style */
+  --background-secondary: #0A0A0A;
+  /* Slightly lighter for elevation */
+  --background-tertiary: #141414;
   /* Highest elevation */
 
   /* === SURFACES === */
