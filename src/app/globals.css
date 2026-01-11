@@ -1,15 +1,22 @@
 @import "tailwindcss";
 
 :root {
-  --background: #060010;
-  --background-secondary: #0d0118;
-  --foreground: #f0f0f0;
-  --foreground-muted: #888888;
+  /* Calmer backgrounds - slightly lighter for better readability */
+  --background: #0F0F17;
+  --background-secondary: #16161F;
+
+  /* Better contrast for text */
+  --foreground: #F5F5F5;
+  --foreground-muted: #9CA3AF;
+
+  /* Keep accent colors */
   --accent: #a855f7;
   --accent-secondary: #6366f1;
-  --border: rgba(255, 255, 255, 0.08);
-  --card-bg: rgba(255, 255, 255, 0.03);
-  --card-bg-hover: rgba(255, 255, 255, 0.06);
+
+  /* More visible borders */
+  --border: rgba(255, 255, 255, 0.12);
+  --card-bg: rgba(255, 255, 255, 0.04);
+  --card-bg-hover: rgba(255, 255, 255, 0.08);
 }
 
 @theme inline {
