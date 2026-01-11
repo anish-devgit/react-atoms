@@ -12,12 +12,12 @@ import { MagneticButton } from "@/components/ui/MagneticButton";
 function HeroComponent() {
     return (
         <section className="relative min-h-screen flex items-center overflow-hidden">
-            <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
-                <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+                <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
                     {/* Left: Headline */}
-                    <div>
+                    <div className="relative z-20">
                         <motion.h1
-                            className="text-[64px] sm:text-[80px] lg:text-[92px] font-bold text-white mb-6 leading-[1.05] tracking-[-0.02em]"
+                            className="text-[48px] sm:text-[60px] lg:text-[72px] font-bold text-white mb-6 leading-[1.1] tracking-[-0.02em]"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ duration: 0.3 }}
@@ -28,7 +28,7 @@ function HeroComponent() {
                         </motion.h1>
 
                         <motion.p
-                            className="text-[18px] sm:text-[20px] text-gray-400 mb-10 leading-relaxed max-w-xl"
+                            className="text-[16px] sm:text-[18px] text-gray-400 mb-8 leading-relaxed max-w-lg"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.6 }}
@@ -46,7 +46,7 @@ function HeroComponent() {
                             <MagneticButton>
                                 <Link
                                     href="/components"
-                                    className="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg bg-white text-black font-semibold text-sm hover:bg-gray-200 transition-colors will-change-transform"
+                                    className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white text-black font-semibold text-sm hover:bg-gray-200 transition-colors will-change-transform"
                                 >
                                     Explore components
                                     <ArrowRight className="w-4 h-4" />
@@ -56,12 +56,12 @@ function HeroComponent() {
                         </motion.div>
                     </div>
 
-                    {/* Right: Million Dollar Visual */}
+                    {/* Right: Visual */}
                     <motion.div
-                        className="hidden lg:block"
+                        className="hidden lg:flex justify-center items-center"
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 1.4, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                        transition={{ duration: 1.2, delay: 0.4 }}
                     >
                         <MillionDollarVisual />
                     </motion.div>
