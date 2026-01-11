@@ -44,12 +44,14 @@ export const metadata: Metadata = {
       "An open source collection of atomic, reusable React components for building stunning user interfaces.",
     type: "website",
     locale: "en_US",
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "ReactAtoms Preview" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "ReactAtoms - Atomic React Components",
     description:
       "An open source collection of atomic, reusable React components for building stunning user interfaces.",
+    images: ["/og.png"],
   },
 };
 
