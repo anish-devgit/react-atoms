@@ -17,6 +17,10 @@
   <a href="https://github.com/anish-devgit/react-atoms">GitHub</a>
 </p>
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/anish-devgit/react-atoms/main/public/preview.png" alt="ReactAtoms Preview" width="800" />
+</p>
+
 ---
 
 ## 🧠 What is ReactAtoms?
