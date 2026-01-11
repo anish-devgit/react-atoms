@@ -1,0 +1,53 @@
+name: Welcome Contributor
+
+on:
+  pull_request:
+    types: [opened]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  welcome:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Welcome New Contributor
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const creator = context.payload.pull_request.user.login;
+            const { owner, repo } = context.repo;
+
+            // Check if user has contributed before
+            const commits = await github.rest.repos.listCommits({
+              owner,
+              repo,
+              author: creator,
+              per_page: 2 // We only need to know if >0 exist before this PR
+            });
+
+            // If this is effectively their first commit/PR (listCommits might include this PR's commits, so check carefully if simpler logic preferred)
+            // Simpler approach for "First PR interaction": use a library or check issues.listForRepo with creator=... 
+            // Let's just post a nice message regardless, but customize if it looks new.
+            // Actually, let's keep it simple: "Thanks for your PR!"
+            
+            // Standard nice production welcome
+            const body = `
+            ## 🚀 Thanks for contributing, @${creator}!
+
+            We appreciate your interest in making **ReactAtoms** better. 
+            
+            ### Next Steps:
+            - A maintainer will review your code shortly.
+            - Ensure all CI checks pass.
+            - If this is a visual change, please attach a recording/screenshot if you haven't.
+
+            **Happy coding!** ⚛️
+            `;
+
+            await github.rest.issues.createComment({
+              owner,
+              repo,
+              issue_number: context.issue.number,
+              body: body
+            });

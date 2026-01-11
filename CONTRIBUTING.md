@@ -17,6 +17,15 @@ Thank you for considering contributing to ReactAtoms! This document provides gui
 - Describe the component/feature and its use case
 - Explain why it would be valuable
 
+### Claiming Issues
+
+We use an automated system for issue assignment.
+
+1. Find an issue labeled `good first issue` or `help wanted`
+2. Comment **`.take`** on the issue
+3. The system will automatically assign it to you if it's available
+4. You'll receive a confirmation comment with next steps
+
 ### Submitting Pull Requests
 
 1. **Fork the repository**
