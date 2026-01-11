@@ -1,41 +1,91 @@
 @import "tailwindcss";
 
 :root {
-  /* Calmer backgrounds - slightly lighter for better readability */
-  --background: #0F0F17;
-  --background-secondary: #16161F;
+  /* === BACKGROUNDS === */
+  --background: #0D0D12;
+  /* Main canvas - neutral dark gray */
+  --background-secondary: #15151C;
+  /* Elevated surfaces */
+  --background-tertiary: #1C1C26;
+  /* Highest elevation */
 
-  /* Better contrast for text */
-  --foreground: #F5F5F5;
-  --foreground-muted: #9CA3AF;
+  /* === SURFACES === */
+  --surface-default: rgba(255, 255, 255, 0.04);
+  /* Cards, panels */
+  --surface-hover: rgba(255, 255, 255, 0.06);
+  /* Interactive hover */
+  --surface-active: rgba(255, 255, 255, 0.08);
+  /* Active selection */
 
-  /* Keep accent colors */
-  --accent: #a855f7;
-  --accent-secondary: #6366f1;
+  /* === BORDERS === */
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  /* Dividers */
+  --border: rgba(255, 255, 255, 0.15);
+  /* Default borders */
+  --border-strong: rgba(255, 255, 255, 0.25);
+  /* Emphasized */
 
-  /* More visible borders */
-  --border: rgba(255, 255, 255, 0.12);
-  --card-bg: rgba(255, 255, 255, 0.04);
-  --card-bg-hover: rgba(255, 255, 255, 0.08);
+  /* === TEXT === */
+  --foreground: #FAFAFA;
+  /* Headings, primary text */
+  --foreground-secondary: #D4D4D8;
+  /* Body text */
+  --foreground-muted: #A1A1AA;
+  /* Secondary info */
+  --foreground-disabled: #71717A;
+  /* Disabled state */
+
+  /* === ACCENT (Professional Blue) === */
+  --accent: #3B82F6;
+  /* Primary blue */
+  --accent-secondary: #2563EB;
+  /* Hover state */
+  --accent-subtle: rgba(59, 130, 246, 0.10);
+  /* Backgrounds */
+  --accent-border: rgba(59, 130, 246, 0.30);
+  /* Borders */
+
+  /* === SEMANTIC === */
+  --success: #10B981;
+  --warning: #F59E0B;
+  --error: #EF4444;
+
+  /* === LEGACY ALIASES (for compatibility) === */
+  --card-bg: var(--surface-default);
+  --card-bg-hover: var(--surface-hover);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-background-secondary: var(--background-secondary);
+  --color-background-tertiary: var(--background-tertiary);
+  --color-surface-default: var(--surface-default);
+  --color-surface-hover: var(--surface-hover);
+  --color-surface-active: var(--surface-active);
+  --color-border-subtle: var(--border-subtle);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
   --color-foreground: var(--foreground);
+  --color-foreground-secondary: var(--foreground-secondary);
   --color-foreground-muted: var(--foreground-muted);
+  --color-foreground-disabled: var(--foreground-disabled);
   --color-accent: var(--accent);
   --color-accent-secondary: var(--accent-secondary);
-  --color-border: var(--border);
+  --color-accent-subtle: var(--accent-subtle);
+  --color-accent-border: var(--accent-border);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
   --color-card-bg: var(--card-bg);
   --color-card-bg-hover: var(--card-bg-hover);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
+/* Scrollbar styling */
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgba(168, 85, 247, 0.3) transparent;
+  scrollbar-color: var(--accent-subtle) transparent;
 }
 
 *::-webkit-scrollbar {
@@ -48,12 +98,12 @@
 }
 
 *::-webkit-scrollbar-thumb {
-  background: rgba(168, 85, 247, 0.3);
+  background: rgba(59, 130, 246, 0.2);
   border-radius: 3px;
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background: rgba(168, 85, 247, 0.5);
+  background: rgba(59, 130, 246, 0.4);
 }
 
 html {
@@ -67,29 +117,7 @@ body {
   min-height: 100vh;
 }
 
-/* Gradient text utility */
-.gradient-text {
-  background: linear-gradient(135deg, #a855f7, #6366f1, #ec4899);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Glow effects */
-.glow-purple {
-  box-shadow: 0 0 40px rgba(168, 85, 247, 0.3);
-}
-
-.glow-purple-sm {
-  box-shadow: 0 0 20px rgba(168, 85, 247, 0.2);
-}
-
-/* Glass effect */
-.glass {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
+/* REMOVED: gradient-text, glow effects, glass - part of old theme */
 
 /* Code block styling */
 .shiki {
@@ -106,8 +134,8 @@ body {
 
 /* Selection styling */
 ::selection {
-  background: rgba(168, 85, 247, 0.3);
-  color: white;
+  background: var(--accent-subtle);
+  color: var(--foreground);
 }
 
 /* Focus styling */
