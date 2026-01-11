@@ -1,0 +1,5 @@
+# Code owners — auto-request reviews for changes
+# Format: <team or user> <path>
+# Main owners:
+@anish-devgit    /src/components/
+@anish-devgit    /src/demos/
