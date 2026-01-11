@@ -1,7 +1,7 @@
 # ReactAtoms
 
 <p align="center">
-  <img src="https://reactatoms.dev/og.png" alt="ReactAtoms" width="120" />
+  <img src="https://raw.githubusercontent.com/anish-devgit/react-atoms/main/public/hero.png" alt="ReactAtoms" width="900" />
 </p>
 
 <h1 align="center">ReactAtoms</h1>
@@ -15,10 +15,6 @@
   <a href="https://reactatoms.dev">Documentation</a> ·
   <a href="https://reactatoms.dev/components">Components</a> ·
   <a href="https://github.com/anish-devgit/react-atoms">GitHub</a>
-</p>
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/anish-devgit/react-atoms/main/public/hero.png" alt="ReactAtoms - Components that just work" width="900" />
 </p>
 
 ---
