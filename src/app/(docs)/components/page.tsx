@@ -56,9 +56,9 @@ function ComponentsContent() {
             return categories;
         }
 
-        return categories.map(category => {
+        return categories.map((category: any) => {
             const categoryComponents = getComponentsByCategory(category.id);
-            const filtered = categoryComponents.filter(comp => {
+            const filtered = categoryComponents.filter((comp: any) => {
                 const matchesSearch = searchQuery === "" ||
                     comp.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                     comp.description.toLowerCase().includes(searchQuery.toLowerCase());
@@ -73,7 +73,7 @@ function ComponentsContent() {
                 filteredComponents: filtered,
                 shouldShow: filtered.length > 0
             };
-        }).filter(cat => cat.shouldShow);
+        }).filter((cat: any) => cat.shouldShow);
     }, [searchQuery, activeFilter]);
 
     const totalComponents = components.length;
