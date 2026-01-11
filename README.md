@@ -12,6 +12,18 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/anish-devgit/react-atoms/stargazers">
+    <img src="https://img.shields.io/github/stars/anish-devgit/react-atoms?style=for-the-badge&color=blue" alt="Stars" />
+  </a>
+  <a href="https://github.com/anish-devgit/react-atoms/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/anish-devgit/react-atoms?style=for-the-badge&color=green" alt="License" />
+  </a>
+  <a href="https://reactatoms.dev">
+    <img src="https://img.shields.io/badge/Docs-Live-black?style=for-the-badge&logo=react" alt="Docs" />
+  </a>
+</p>
+
+<p align="center">
   <a href="https://reactatoms.dev">Documentation</a> ·
   <a href="https://reactatoms.dev/components">Components</a> ·
   <a href="https://github.com/anish-devgit/react-atoms">GitHub</a>
@@ -215,4 +227,9 @@ GitHub → https://github.com/anish-devgit
   <sub>
     Built for developers who care about motion, detail, and experience.
   </sub>
+  <br/>
+  <br/>
+  <a href="https://github.com/anish-devgit/react-atoms/stargazers">
+    <strong>⭐ If ReactAtoms saves you time, consider starring the repo!</strong>
+  </a>
 </p>
