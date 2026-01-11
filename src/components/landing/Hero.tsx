@@ -41,7 +41,7 @@ function HeroComponent() {
         <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
             <AnimatedBackground />
 
-            <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20 text-center">
+            <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20 text-center">
                 {/* Badge */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -60,7 +60,7 @@ function HeroComponent() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.1 }}
-                    className="text-5xl sm:text-6xl lg:text-7xl font-bold text-foreground mb-6 tracking-tight"
+                    className="text-6xl sm:text-7xl lg:text-8xl font-bold text-foreground mb-6 tracking-tight leading-[1.1]"
                 >
                     Components that
                     <br />
@@ -72,7 +72,7 @@ function HeroComponent() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.2 }}
-                    className="text-lg sm:text-xl text-foreground-muted max-w-lg mx-auto mb-12 leading-relaxed"
+                    className="text-xl sm:text-2xl text-foreground-muted max-w-2xl mx-auto mb-12 leading-relaxed"
                 >
                     Copy the code. Customize to fit. Ship your product.
                     <br className="hidden sm:block" />
@@ -117,30 +117,6 @@ function HeroComponent() {
                             <div className="text-sm text-foreground-muted mt-1">{point.label}</div>
                         </div>
                     ))}
-                </motion.div>
-
-                {/* Feature Cards */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.5 }}
-                    className="grid grid-cols-2 md:grid-cols-4 gap-4"
-                >
-                    {features.map((feature) => (
-                        <div
-                            key={feature.title}
-                            className="p-5 rounded-xl bg-surface-default border border-border transition-all duration-200 hover:border-accent-border hover:bg-surface-hover"
-                        >
-                            <feature.icon className="w-5 h-5 text-accent mb-3 mx-auto" />
-                            <h3 className="font-medium text-foreground text-sm mb-1">
-                                {feature.title}
-                            </h3>
-                            <p className="text-xs text-foreground-muted">
-                                {feature.description}
-                            </p>
-                        </div>
-                    ))}
-                </motion.div>
             </div>
         </section>
     );
