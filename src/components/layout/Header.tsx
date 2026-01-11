@@ -33,8 +33,8 @@ export function Header() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
             className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-                    ? "py-2 backdrop-blur-xl bg-background/80"
-                    : "py-4 backdrop-blur-md bg-background/60"
+                ? "py-2 backdrop-blur-xl bg-background/80"
+                : "py-4 backdrop-blur-md bg-background/60"
                 }`}
         >
             {/* Subtle bottom border glow */}
@@ -75,8 +75,8 @@ export function Header() {
                                     key={link.href}
                                     href={link.href}
                                     className={`relative px-4 py-1.5 text-sm font-medium rounded-full transition-all duration-200 ${isActive
-                                            ? "text-foreground"
-                                            : "text-foreground-muted hover:text-foreground"
+                                        ? "text-foreground"
+                                        : "text-foreground-muted hover:text-foreground"
                                         }`}
                                 >
                                     {/* Active indicator */}
@@ -105,7 +105,7 @@ export function Header() {
 
                         {/* GitHub Star CTA - Gradient Pill (Desktop) */}
                         <a
-                            href="https://github.com/reactatoms/reactatoms"
+                            href="https://github.com/anish-devgit/react-atoms"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="hidden md:flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-accent to-accent-secondary text-white text-sm font-medium transition-all duration-200 hover:shadow-lg hover:shadow-accent/25 hover:scale-[1.02]"
@@ -152,8 +152,8 @@ export function Header() {
                                             href={link.href}
                                             onClick={() => setIsMenuOpen(false)}
                                             className={`flex items-center gap-2 px-4 py-3 rounded-xl transition-colors duration-200 ${isActive
-                                                    ? "bg-white/[0.08] text-foreground"
-                                                    : "text-foreground-muted hover:text-foreground hover:bg-white/[0.04]"
+                                                ? "bg-white/[0.08] text-foreground"
+                                                : "text-foreground-muted hover:text-foreground hover:bg-white/[0.04]"
                                                 }`}
                                         >
                                             {isActive && (
@@ -174,7 +174,7 @@ export function Header() {
 
                                 {/* Mobile GitHub CTA */}
                                 <a
-                                    href="https://github.com/reactatoms/reactatoms"
+                                    href="https://github.com/anish-devgit/react-atoms"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="flex items-center justify-center gap-2 px-4 py-3 mt-2 rounded-xl bg-gradient-to-r from-accent to-accent-secondary text-white font-medium"

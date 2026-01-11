@@ -13,7 +13,7 @@ We are officially live.
 *   **Text Constraint**: Flux Text, Quantum Focus, Aurora Text, Mist Reveal
 *   **Interactive Backgrounds**: Orbital Fluids, Grid Vortex
 *   **Stack**: TypeScript + Tailwind + Framer Motion
-*   **Docs**: Live previews at [reactatoms.dev](https://reactatoms.dev)
+*   **Docs**: Live previews at [reactatoms.vercel.app](https://reactatoms.vercel.app)
 
 ### 🗺️ Roadmap (Near Term)
 We are currently focusing on:

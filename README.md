@@ -18,13 +18,6 @@
   <a href="https://github.com/anish-devgit/react-atoms/blob/main/LICENSE">
     <img src="https://img.shields.io/github/license/anish-devgit/react-atoms?style=for-the-badge&color=green" alt="License" />
   </a>
-  <a href="https://reactatoms.dev">
-    <img src="https://img.shields.io/badge/Docs-Live-black?style=for-the-badge&logo=react" alt="Docs" />
-  </a>
-</p>
-
-<p align="center">
-  <a href="https://reactatoms.dev">Documentation</a> ·
   <a href="https://reactatoms.dev/components">Components</a> ·
   <a href="https://github.com/anish-devgit/react-atoms">GitHub</a>
 </p>
