@@ -1,11 +1,11 @@
 "use client";
 
-import { Suspense } from "react";
+import { Suspense, useState, useMemo } from "react";
 import { categories } from "@/data/categories";
-import { getComponentsByCategory, getNewComponents } from "@/data/components";
+import { getComponentsByCategory, getNewComponents, components } from "@/data/components";
 import { LivePreview } from "@/components/ui/LivePreview";
 import Link from "next/link";
-import { ArrowRight, Sparkles, Box, Layout, Type, MousePointer, Layers } from "lucide-react";
+import { ArrowRight, Sparkles, Box, Layout, Type, MousePointer, Layers, Search } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 
@@ -20,6 +20,8 @@ const categoryIcons: Record<string, any> = {
 };
 
 function ComponentsContent() {
+    const [searchQuery, setSearchQuery] = useState("");
+    const [activeFilter, setActiveFilter] = useState("all");
     const newComponents = getNewComponents();
     const searchParams = useSearchParams();
     const categoryRefs = useRef<Record<string, HTMLElement | null>>({});
@@ -48,16 +50,92 @@ function ComponentsContent() {
         }
     }, [searchParams]);
 
+    // Filter logic
+    const filteredCategories = useMemo(() => {
+        if (!searchQuery && activeFilter === "all") {
+            return categories;
+        }
+
+        return categories.map(category => {
+            const categoryComponents = getComponentsByCategory(category.id);
+            const filtered = categoryComponents.filter(comp => {
+                const matchesSearch = searchQuery === "" ||
+                    comp.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    comp.description.toLowerCase().includes(searchQuery.toLowerCase());
+
+                const matchesFilter = activeFilter === "all" || category.id === activeFilter;
+
+                return matchesSearch && matchesFilter;
+            });
+
+            return {
+                ...category,
+                filteredComponents: filtered,
+                shouldShow: filtered.length > 0
+            };
+        }).filter(cat => cat.shouldShow);
+    }, [searchQuery, activeFilter]);
+
+    const totalComponents = components.length;
+    const filteredCount = filteredCategories.reduce((acc: number, cat: any) => acc + (cat.filteredComponents?.length || 0), 0);
+
     return (
         <main>
             {/* Header */}
-            <div className="mb-12">
+            <div className="mb-8">
                 <h1 className="text-4xl font-bold text-foreground mb-3 tracking-tight">
                     Components Library
                 </h1>
                 <p className="text-lg text-foreground-muted max-w-2xl">
-                    Browse 56 production-ready components. Copy, paste, ship.
+                    Browse {totalComponents} production-ready components. Copy, paste, ship.
                 </p>
+            </div>
+
+            {/* Search & Filter Bar */}
+            <div className="mb-8 space-y-4">
+                {/* Search Input */}
+                <div className="relative">
+                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-foreground-muted" />
+                    <input
+                        type="text"
+                        placeholder="Search components..."
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="w-full pl-12 pr-4 py-3 bg-card-bg border border-border rounded-xl text-foreground placeholder:text-foreground-muted focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-all"
+                    />
+                </div>
+
+                {/* Category Filters */}
+                <div className="flex flex-wrap gap-2">
+                    <button
+                        onClick={() => setActiveFilter("all")}
+                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${activeFilter === "all"
+                            ? "bg-accent text-white"
+                            : "bg-card-bg text-foreground-muted hover:text-foreground hover:bg-card-bg-hover border border-border"
+                            }`}
+                    >
+                        All ({totalComponents})
+                    </button>
+                    {categories.map((category) => (
+                        <button
+                            key={category.id}
+                            onClick={() => setActiveFilter(category.id)}
+                            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${activeFilter === category.id
+                                ? "bg-accent text-white"
+                                : "bg-card-bg text-foreground-muted hover:text-foreground hover:bg-card-bg-hover border border-border"
+                                }`}
+                        >
+                            {category.name} ({getComponentsByCategory(category.id).length})
+                        </button>
+                    ))}
+                </div>
+
+                {/* Results count */}
+                {(searchQuery || activeFilter !== "all") && (
+                    <p className="text-sm text-foreground-muted">
+                        Showing {filteredCount} of {totalComponents} components
+                    </p>
+                )}
             </div>
 
             {/* New Components Highlight */}
@@ -86,21 +164,20 @@ function ComponentsContent() {
 
             {/* Categories Grid */}
             <div className="space-y-16">
-                {categories.map((category) => {
+                {filteredCategories.map((category) => {
                     const Icon = categoryIcons[category.id] || category.icon || Box;
-                    const categoryComponents = getComponentsByCategory(category.id);
+                    const categoryComponents = category.filteredComponents || getComponentsByCategory(category.id);
 
                     return (
                         <section
                             key={category.id}
                             id={category.id}
-                            ref={(el) => { categoryRefs.current[category.id] = el; }}
                             className="scroll-mt-24"
                         >
                             {/* Category Header */}
                             <div className="flex items-center justify-between mb-6 group">
                                 <div className="flex items-center gap-3">
-                                    <div className="w-10 h-10 rounded-xl bg-white/[0.03] border border-white/[0.05] flex items-center justify-center group-hover:bg-accent/10 group-hover:border-accent/20 transition-colors">
+                                    <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-border flex items-center justify-center group-hover:bg-accent/10 group-hover:border-accent/20 transition-colors">
                                         <Icon className="w-5 h-5 text-foreground-muted group-hover:text-accent transition-colors" />
                                     </div>
                                     <div>
@@ -123,17 +200,14 @@ function ComponentsContent() {
 
                             {/* Components Grid */}
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                                {categoryComponents.slice(0, 4).map((component) => (
+                                {categoryComponents.slice(0, 8).map((component: any) => (
                                     <Link
                                         key={component.slug}
                                         href={`/components/${category.id}/${component.slug}`}
-                                        className="group relative flex flex-col p-1 rounded-xl bg-white/[0.02] border border-border hover:border-accent/30 hover:bg-white/[0.03] transition-all duration-300 hover:shadow-lg hover:shadow-accent/5"
+                                        className="group relative flex flex-col p-1 rounded-xl bg-card-bg border border-border hover:border-accent/30 hover:bg-card-bg-hover transition-all duration-300"
                                     >
                                         {/* Live Preview Area */}
-                                        <div className="mb-3 rounded-lg bg-black/20 border border-white/[0.02] overflow-hidden relative">
-                                            {/* Grid Pattern Background */}
-                                            <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:16px_16px]" />
-
+                                        <div className="mb-3 rounded-lg bg-black/20 border border-border overflow-hidden relative">
                                             {/* Live Component Preview */}
                                             <div className="relative">
                                                 <LivePreview slug={component.slug} name={component.name} />
@@ -165,13 +239,13 @@ function ComponentsContent() {
                             </div>
 
                             {/* Show more if there are more components */}
-                            {categoryComponents.length > 4 && (
+                            {categoryComponents.length > 8 && (
                                 <div className="mt-4 pl-1">
                                     <Link
                                         href={`/components/${category.id}`}
                                         className="inline-flex items-center text-xs font-medium text-foreground-muted hover:text-accent transition-colors"
                                     >
-                                        +{categoryComponents.length - 4} more components
+                                        +{categoryComponents.length - 8} more components
                                     </Link>
                                 </div>
                             )}

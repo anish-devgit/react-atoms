@@ -147,21 +147,16 @@ function SidebarComponent() {
                                         toggleCategory(category.id);
                                     }}
                                     className={clsx(
-                                        "group w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 relative overflow-hidden",
+                                        "group w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200",
                                         isCategoryActive
-                                            ? "bg-gradient-to-r from-accent/15 via-accent/10 to-transparent text-accent shadow-md shadow-accent/5"
-                                            : "text-foreground-muted hover:text-foreground hover:bg-gradient-to-r hover:from-white/8 hover:to-transparent"
+                                            ? "bg-accent/10 text-accent border-l-2 border-accent"
+                                            : "text-foreground-muted hover:text-foreground hover:bg-white/5"
                                     )}
                                 >
-                                    {/* Animated background on hover */}
-                                    {!isCategoryActive && (
-                                        <div className="absolute inset-0 bg-gradient-to-r from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                                    )}
-
                                     <div className="flex items-center gap-3 relative z-10">
                                         <Icon className={clsx(
                                             "w-4 h-4 transition-all duration-200",
-                                            isCategoryActive ? "text-accent drop-shadow-[0_0_8px_rgba(168,85,247,0.5)]" : "text-foreground-muted group-hover:text-accent group-hover:scale-110"
+                                            isCategoryActive ? "text-accent" : "text-foreground-muted group-hover:text-foreground"
                                         )} />
                                         <span>{category.name}</span>
                                     </div>
@@ -170,13 +165,13 @@ function SidebarComponent() {
                                             "text-[10px] font-bold px-1.5 py-0.5 rounded-md transition-all duration-200",
                                             isCategoryActive
                                                 ? "bg-accent/20 text-accent"
-                                                : "bg-white/5 text-foreground-muted/70 group-hover:bg-accent/10 group-hover:text-accent"
+                                                : "bg-white/5 text-foreground-muted/70 group-hover:bg-white/10"
                                         )}>{category.count}</span>
                                         <ChevronDown
                                             className={clsx(
                                                 "w-4 h-4 transition-all duration-200",
                                                 isExpanded && "rotate-180",
-                                                isCategoryActive ? "text-accent" : "text-foreground-muted group-hover:text-accent"
+                                                isCategoryActive ? "text-accent" : "text-foreground-muted group-hover:text-foreground"
                                             )}
                                         />
                                     </div>
