@@ -1,47 +1,18 @@
 # Security Policy
 
-## Reporting a Vulnerability
-
-If you discover a security vulnerability in ReactAtoms, please report it responsibly.
-
-**DO NOT** open a public GitHub issue.
-
-### How to Report
-
-Send details to: **[Create a private security advisory on GitHub]**
-
-Or email: **anishraj@example.com** (replace with actual contact)
-
-### What to Include
-
-- Description of the vulnerability
-- Steps to reproduce
-- Potential impact
-- Suggested fix (if any)
-
-### Response Timeline
-
-- **Initial response**: Within 48 hours
-- **Status update**: Within 7 days
-- **Fix timeline**: Depends on severity (critical issues prioritized)
-
 ## Supported Versions
 
-We provide security updates for the latest stable release.
+Only the latest version of ReactAtoms is currently supported with security updates.
 
 | Version | Supported          |
 | ------- | ------------------ |
-| Latest  | ✅ Yes             |
-| Older   | ❌ No              |
+| v0.1.x  | :white_check_mark: |
+| < v0.1  | :x:                |
 
-## Security Best Practices
+## Reporting a Vulnerability
 
-When using ReactAtoms:
-- Keep dependencies updated
-- Validate user input
-- Use environment variables for sensitive data
-- Follow React security guidelines
+We take security seriously. If you discover a vulnerability, please do NOT open a public issue.
 
----
+Instead, please email **anish@example.com** (replace with actual email if desired, or use GitHub Security Advisories).
 
-Thank you for helping keep ReactAtoms secure! 🔒
+We will create a private advisory to discuss the fix.
