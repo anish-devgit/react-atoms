@@ -1,0 +1,6 @@
+src/app/(docs)/components/[category]/[slug]/ComponentDetailContent.tsx(90,48): error TS2339: Property 'code' does not exist on type 'ComponentItem'.
+src/app/(docs)/components/[category]/[slug]/ComponentDetailContent.tsx(103,48): error TS2339: Property 'usage' does not exist on type 'ComponentItem'.
+src/app/(docs)/components/[category]/CategoryContent.tsx(4,10): error TS2724: '"@/data/components"' has no exported member named 'ComponentData'. Did you mean 'components'?
+src/components/ui/AnimatedBackground.tsx(116,57): error TS2749: 'height' refers to a value, but is being used as a type here. Did you mean 'typeof height'?
+src/components/ui/ComponentCard.tsx(7,10): error TS2724: '"@/data/components"' has no exported member named 'ComponentData'. Did you mean 'components'?
+src/components/ui/ComponentCard.tsx(39,54): error TS7006: Parameter 'tag' implicitly has an 'any' type.

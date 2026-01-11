@@ -1,36 +1,93 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ReactAtoms
 
-## Getting Started
+**Atomic React components for building stunning user interfaces.**
 
-First, run the development server:
+A production-ready collection of premium React components featuring smooth animations, dynamic backgrounds, and interactive text effects. Built with TypeScript, Tailwind CSS, and Framer Motion.
+
+---
+
+## Why ReactAtoms?
+
+Modern web applications demand polished, interactive UI components. ReactAtoms provides copy-paste-ready components that work out of the box—no complex setup, no vendor lock-in. Each component is atomic, customizable, and performance-optimized.
+
+## Features
+
+- **🎨 Text Animations** — Gradient text, glitch effects, typewriter, split text, and more
+- **⚡ Micro-Interactions** — Magnetic buttons, ripple effects, hover lifts, shimmer loading
+- **🌌 Dynamic Backgrounds** — Aurora effects, orbital fluids, gradient meshes, noise textures
+- **🎯 UI Components** — Glass cards, spotlight effects, animated counters, progress bars
+- **📱 Fully Responsive** — Works seamlessly across all devices
+- **🎭 Framer Motion Powered** — Smooth, performant animations
+- **⚙️ TypeScript First** — Full type safety and IntelliSense support
+- **🎨 Tailwind CSS** — Easy customization with utility classes
+
+## Installation
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install framer-motion clsx tailwind-merge
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Quick Start
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```tsx
+import { GradientText } from "@/components/ui/GradientText";
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+export default function App() {
+  return (
+    <div className="p-8">
+      <GradientText
+        text="Beautiful Gradient Text"
+        colors={["#a855f7", "#ec4899", "#6366f1"]}
+      />
+    </div>
+  );
+}
+```
 
-## Learn More
+## Documentation
 
-To learn more about Next.js, take a look at the following resources:
+Visit [reactatoms.dev](https://reactatoms.dev) for:
+- Live component previews
+- Interactive demos
+- Full API documentation
+- Copy-paste code snippets
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+reactatoms/
+├── src/
+│   ├── components/
+│   │   ├── ui/          # Core components
+│   │   └── demos/       # Demo implementations
+│   ├── app/             # Next.js app router
+│   └── data/            # Component metadata
+├── public/              # Static assets
+└── docs/                # Documentation
+```
 
-## Deploy on Vercel
+## Contributing
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+We welcome contributions! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:
+- Submitting bug reports
+- Proposing new components
+- Creating pull requests
+- Code style and conventions
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Security
+
+Found a security issue? Please refer to [SECURITY.md](SECURITY.md) for responsible disclosure guidelines.
+
+## License
+
+MIT License - see [LICENSE](LICENSE) for details.
+
+## Credits
+
+**Created and maintained by [Anish Raj](https://github.com/anish-devgit)**
+
+---
+
+<div align="center">
+  <sub>Built with ❤️ for the React community</sub>
+</div>
