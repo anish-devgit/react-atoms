@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Github, Star } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { AtomicLogo } from "@/components/ui/AtomicLogo";
 
 const navLinks = [
     { href: "/", label: "Home" },
@@ -39,13 +40,7 @@ export function Header() {
                 <div className="flex items-center justify-between">
                     {/* Logo - Left */}
                     <Link href="/" className="flex items-center gap-2.5 group">
-                        <div className="w-7 h-7 rounded-lg overflow-hidden">
-                            <img
-                                src="/logo.png"
-                                alt="ReactAtoms"
-                                className="w-full h-full object-contain"
-                            />
-                        </div>
+                        <AtomicLogo size={28} className="text-foreground group-hover:text-accent transition-colors duration-200" />
                         <span className="text-base font-semibold text-foreground group-hover:text-accent transition-colors duration-200">
                             ReactAtoms
                         </span>

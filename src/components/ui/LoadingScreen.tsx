@@ -19,21 +19,21 @@ export function LoadingScreen() {
         <AnimatePresence>
             {isLoading && (
                 <motion.div
-                    className="fixed inset-0 z-50 flex items-center justify-center bg-white dark:bg-black"
+                    className="fixed inset-0 z-[9999] flex items-center justify-center bg-white dark:bg-black"
                     initial={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.6, ease: "easeInOut" }}
                 >
                     <motion.div
-                        className="flex flex-col items-center gap-4"
+                        className="flex items-center gap-4"
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.5, delay: 0.2 }}
                     >
-                        {/* Logo - Atomic symbol */}
+                        {/* Logo - Atomic symbol (smaller, inline) */}
                         <motion.svg
-                            width="80"
-                            height="80"
+                            width="48"
+                            height="48"
                             viewBox="0 0 100 100"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
@@ -89,7 +89,7 @@ export function LoadingScreen() {
 
                         {/* Text with outline effect like Animate UI */}
                         <motion.h1
-                            className="text-5xl font-bold tracking-tight"
+                            className="text-4xl font-bold tracking-tight"
                             style={{
                                 WebkitTextStroke: "1px currentColor",
                                 color: "transparent",
@@ -101,21 +101,21 @@ export function LoadingScreen() {
                         >
                             <span className="text-black dark:text-white">ReactAtoms</span>
                         </motion.h1>
+                    </motion.div>
 
-                        {/* Loading progress bar (optional) */}
+                    {/* Loading progress bar */}
+                    <motion.div
+                        className="absolute bottom-20 left-1/2 -translate-x-1/2 w-48 h-0.5 bg-gray-200 dark:bg-gray-800 rounded-full overflow-hidden"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.6 }}
+                    >
                         <motion.div
-                            className="w-48 h-0.5 bg-gray-200 dark:bg-gray-800 rounded-full overflow-hidden"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 0.6 }}
-                        >
-                            <motion.div
-                                className="h-full bg-black dark:bg-white"
-                                initial={{ width: "0%" }}
-                                animate={{ width: "100%" }}
-                                transition={{ duration: 2, ease: "easeInOut" }}
-                            />
-                        </motion.div>
+                            className="h-full bg-black dark:bg-white"
+                            initial={{ width: "0%" }}
+                            animate={{ width: "100%" }}
+                            transition={{ duration: 2, ease: "easeInOut" }}
+                        />
                     </motion.div>
                 </motion.div>
             )}
