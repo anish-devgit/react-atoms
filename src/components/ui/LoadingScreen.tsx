@@ -9,15 +9,15 @@ export function LoadingScreen() {
     const [stage, setStage] = useState<'loading' | 'transitioning' | 'done'>('loading');
 
     useEffect(() => {
-        // 2 second loading duration
+        // 1.5 second loading duration
         const loadingTimer = setTimeout(() => {
             setStage('transitioning');
-        }, 2000);
+        }, 1500);
 
         const transitionTimer = setTimeout(() => {
             setStage('done');
             setIsLoading(false);
-        }, 2800); // 2000ms loading + 800ms transition
+        }, 2300); // 1500ms loading + 800ms transition
 
         return () => {
             clearTimeout(loadingTimer);
