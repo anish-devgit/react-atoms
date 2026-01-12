@@ -2,274 +2,220 @@
 
 import { memo, useRef, useMemo, Suspense } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { PerspectiveCamera } from "@react-three/drei";
+import { PerspectiveCamera, Float } from "@react-three/drei";
 import { EffectComposer, Bloom, Vignette } from "@react-three/postprocessing";
 import * as THREE from "three";
 
-// Spiral galaxy formation
-function Galaxy({ position, scale, rotationSpeed, tilt }: {
+// Floating code block component
+function CodeBlock({
+    position,
+    rotation,
+    scale = 1,
+    delay = 0
+}: {
     position: [number, number, number];
-    scale: number;
-    rotationSpeed: number;
-    tilt: [number, number, number];
+    rotation?: [number, number, number];
+    scale?: number;
+    delay?: number;
 }) {
-    const galaxyRef = useRef<THREE.Points>(null);
-    const armCount = 3;
-    const particleCount = 500;
+    const meshRef = useRef<THREE.Group>(null);
 
-    const geometry = useMemo(() => {
-        const geo = new THREE.BufferGeometry();
-        const positions = new Float32Array(particleCount * 3);
-        const colors = new Float32Array(particleCount * 3);
-
-        for (let i = 0; i < particleCount; i++) {
-            const i3 = i * 3;
-
-            const arm = i % armCount;
-            const armAngle = (arm / armCount) * Math.PI * 2;
-            const distance = (i / particleCount) * 2.5;
-            const spiralAngle = armAngle + distance * 3;
-
-            const randomOffset = (Math.random() - 0.5) * 0.4 * distance;
-
-            positions[i3] = Math.cos(spiralAngle) * distance + randomOffset;
-            positions[i3 + 1] = (Math.random() - 0.5) * 0.15;
-            positions[i3 + 2] = Math.sin(spiralAngle) * distance + randomOffset;
-
-            const brightness = 0.4 + (1 - distance / 2.5) * 0.6;
-            colors[i3] = brightness + 0.05;
-            colors[i3 + 1] = brightness;
-            colors[i3 + 2] = brightness - 0.02;
-        }
-
-        geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-        geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-        return geo;
-    }, []);
-
-    useFrame(() => {
-        if (galaxyRef.current) {
-            galaxyRef.current.rotation.y += rotationSpeed;
+    useFrame((state) => {
+        if (meshRef.current) {
+            meshRef.current.position.y += Math.sin(state.clock.elapsedTime * 0.5 + delay) * 0.001;
+            meshRef.current.rotation.y += 0.001;
         }
     });
 
     return (
-        <points ref={galaxyRef} position={position} rotation={tilt} scale={scale} geometry={geometry}>
-            <pointsMaterial
-                size={0.035}
-                vertexColors
-                transparent
-                opacity={0.7}
-                sizeAttenuation
-                blending={THREE.AdditiveBlending}
-            />
-        </points>
+        <Float speed={1} rotationIntensity={0.1} floatIntensity={0.3}>
+            <group ref={meshRef} position={position} rotation={rotation} scale={scale}>
+                {/* Code block background */}
+                <mesh>
+                    <boxGeometry args={[2, 1.2, 0.08]} />
+                    <meshStandardMaterial
+                        color="#0f172a"
+                        metalness={0.5}
+                        roughness={0.8}
+                        transparent
+                        opacity={0.9}
+                    />
+                </mesh>
+
+                {/* Border glow */}
+                <mesh position={[0, 0, -0.01]}>
+                    <boxGeometry args={[2.05, 1.25, 0.06]} />
+                    <meshBasicMaterial color="#3b82f6" transparent opacity={0.15} />
+                </mesh>
+
+                {/* Code lines */}
+                {[-0.35, -0.15, 0.05, 0.25].map((y, i) => (
+                    <mesh key={i} position={[-0.3 + i * 0.1, y, 0.05]}>
+                        <boxGeometry args={[0.8 - i * 0.15, 0.06, 0.01]} />
+                        <meshBasicMaterial
+                            color={i === 1 ? "#22d3ee" : i === 3 ? "#a78bfa" : "#64748b"}
+                            transparent
+                            opacity={0.8}
+                        />
+                    </mesh>
+                ))}
+
+                {/* React icon indicator */}
+                <mesh position={[0.7, 0.4, 0.05]}>
+                    <circleGeometry args={[0.08, 16]} />
+                    <meshBasicMaterial color="#61dafb" transparent opacity={0.9} />
+                </mesh>
+            </group>
+        </Float>
     );
 }
 
-// Full screen shimmering stars
-function ShimmeringStars() {
-    const starsRef = useRef<THREE.Points>(null);
-    const starCount = 1000;
+// Floating atom/particle representing React component
+function ReactAtom({ position, scale = 1 }: { position: [number, number, number]; scale?: number }) {
+    const atomRef = useRef<THREE.Group>(null);
+    const ring1Ref = useRef<THREE.Mesh>(null);
+    const ring2Ref = useRef<THREE.Mesh>(null);
+    const ring3Ref = useRef<THREE.Mesh>(null);
 
-    const geometry = useMemo(() => {
-        const geo = new THREE.BufferGeometry();
-        const positions = new Float32Array(starCount * 3);
-
-        for (let i = 0; i < starCount; i++) {
-            const i3 = i * 3;
-
-            // Full screen distribution
-            positions[i3] = (Math.random() - 0.5) * 30;
-            positions[i3 + 1] = (Math.random() - 0.5) * 20;
-            positions[i3 + 2] = -5 - Math.random() * 20;
-        }
-
-        geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-        return geo;
-    }, []);
-
-    useFrame(() => {
-        if (starsRef.current) {
-            starsRef.current.rotation.y += 0.00003;
+    useFrame((state) => {
+        const t = state.clock.elapsedTime;
+        if (ring1Ref.current) ring1Ref.current.rotation.z += 0.01;
+        if (ring2Ref.current) ring2Ref.current.rotation.x += 0.008;
+        if (ring3Ref.current) ring3Ref.current.rotation.y += 0.012;
+        if (atomRef.current) {
+            atomRef.current.position.y = position[1] + Math.sin(t * 0.8) * 0.1;
         }
     });
 
     return (
-        <points ref={starsRef} geometry={geometry}>
-            <pointsMaterial
-                size={0.012}
-                color="#e8e8e8"
-                transparent
-                opacity={0.5}
-                sizeAttenuation
-            />
-        </points>
+        <group ref={atomRef} position={position} scale={scale}>
+            {/* Nucleus */}
+            <mesh>
+                <sphereGeometry args={[0.15, 32, 32]} />
+                <meshStandardMaterial
+                    color="#3b82f6"
+                    emissive="#1d4ed8"
+                    emissiveIntensity={0.5}
+                    metalness={0.8}
+                    roughness={0.2}
+                />
+            </mesh>
+
+            {/* Orbital rings */}
+            <mesh ref={ring1Ref} rotation={[0, 0, 0]}>
+                <torusGeometry args={[0.4, 0.015, 16, 64]} />
+                <meshBasicMaterial color="#60a5fa" transparent opacity={0.6} />
+            </mesh>
+            <mesh ref={ring2Ref} rotation={[Math.PI / 3, 0, 0]}>
+                <torusGeometry args={[0.4, 0.015, 16, 64]} />
+                <meshBasicMaterial color="#60a5fa" transparent opacity={0.6} />
+            </mesh>
+            <mesh ref={ring3Ref} rotation={[0, Math.PI / 3, Math.PI / 4]}>
+                <torusGeometry args={[0.4, 0.015, 16, 64]} />
+                <meshBasicMaterial color="#60a5fa" transparent opacity={0.6} />
+            </mesh>
+        </group>
     );
 }
 
-// Full screen cosmic dust
-function CosmicDust() {
-    const dustRef = useRef<THREE.Points>(null);
-    const dustCount = 500;
+// Background particles
+function BackgroundParticles() {
+    const particlesRef = useRef<THREE.Points>(null);
 
     const geometry = useMemo(() => {
         const geo = new THREE.BufferGeometry();
-        const positions = new Float32Array(dustCount * 3);
+        const count = 300;
+        const positions = new Float32Array(count * 3);
 
-        for (let i = 0; i < dustCount; i++) {
+        for (let i = 0; i < count; i++) {
             const i3 = i * 3;
             positions[i3] = (Math.random() - 0.5) * 25;
-            positions[i3 + 1] = (Math.random() - 0.5) * 16;
-            positions[i3 + 2] = -3 - Math.random() * 12;
+            positions[i3 + 1] = (Math.random() - 0.5) * 18;
+            positions[i3 + 2] = -5 - Math.random() * 15;
         }
 
         geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-        return geo;
-    }, []);
-
-    useFrame((state) => {
-        if (dustRef.current) {
-            dustRef.current.position.x = Math.sin(state.clock.elapsedTime * 0.03) * 0.3;
-            dustRef.current.position.y = Math.cos(state.clock.elapsedTime * 0.02) * 0.15;
-            dustRef.current.rotation.z += 0.00001;
-        }
-    });
-
-    return (
-        <points ref={dustRef} geometry={geometry}>
-            <pointsMaterial
-                size={0.006}
-                color="#777777"
-                transparent
-                opacity={0.15}
-            />
-        </points>
-    );
-}
-
-// Cosmic wave rings
-function CosmicWaves() {
-    const wave1Ref = useRef<THREE.Mesh>(null);
-    const wave2Ref = useRef<THREE.Mesh>(null);
-
-    useFrame((state) => {
-        if (wave1Ref.current) {
-            wave1Ref.current.rotation.z += 0.0002;
-            const scale = 1 + Math.sin(state.clock.elapsedTime * 0.15) * 0.03;
-            wave1Ref.current.scale.setScalar(scale);
-        }
-        if (wave2Ref.current) {
-            wave2Ref.current.rotation.z -= 0.00015;
-            wave2Ref.current.rotation.y += 0.0001;
-        }
-    });
-
-    return (
-        <>
-            <mesh ref={wave1Ref} position={[3, 0, -10]}>
-                <torusGeometry args={[6, 2.5, 8, 64]} />
-                <meshBasicMaterial color="#151515" transparent opacity={0.06} wireframe />
-            </mesh>
-            <mesh ref={wave2Ref} position={[-4, 1, -15]}>
-                <torusGeometry args={[8, 3, 8, 64]} />
-                <meshBasicMaterial color="#121212" transparent opacity={0.04} wireframe />
-            </mesh>
-        </>
-    );
-}
-
-// Light particles across full screen
-function LightParticles() {
-    const particlesRef = useRef<THREE.Points>(null);
-    const particleCount = 250;
-
-    const geometry = useMemo(() => {
-        const geo = new THREE.BufferGeometry();
-        const positions = new Float32Array(particleCount * 3);
-        const colors = new Float32Array(particleCount * 3);
-
-        for (let i = 0; i < particleCount; i++) {
-            const i3 = i * 3;
-            positions[i3] = (Math.random() - 0.5) * 22;
-            positions[i3 + 1] = (Math.random() - 0.5) * 14;
-            positions[i3 + 2] = -2 - Math.random() * 10;
-
-            const isWarm = Math.random() > 0.88;
-            if (isWarm) {
-                colors[i3] = 1.0;
-                colors[i3 + 1] = 0.95;
-                colors[i3 + 2] = 0.85;
-            } else {
-                const gray = 0.7 + Math.random() * 0.3;
-                colors[i3] = gray;
-                colors[i3 + 1] = gray;
-                colors[i3 + 2] = gray;
-            }
-        }
-
-        geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-        geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
         return geo;
     }, []);
 
     useFrame((state) => {
         if (particlesRef.current) {
-            const positions = particlesRef.current.geometry.attributes.position.array as Float32Array;
-            for (let i = 0; i < particleCount; i++) {
-                const i3 = i * 3;
-                positions[i3 + 1] += Math.sin(state.clock.elapsedTime + i * 0.1) * 0.0003;
-            }
-            particlesRef.current.geometry.attributes.position.needsUpdate = true;
+            particlesRef.current.rotation.y = state.clock.elapsedTime * 0.02;
         }
     });
 
     return (
         <points ref={particlesRef} geometry={geometry}>
-            <pointsMaterial
-                size={0.018}
-                vertexColors
-                transparent
-                opacity={0.55}
-                sizeAttenuation
-                blending={THREE.AdditiveBlending}
-            />
+            <pointsMaterial size={0.02} color="#475569" transparent opacity={0.4} />
         </points>
+    );
+}
+
+// Connection lines between elements
+function ConnectionLines() {
+    const linesRef = useRef<THREE.Group>(null);
+
+    useFrame((state) => {
+        if (linesRef.current) {
+            linesRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.1) * 0.05;
+        }
+    });
+
+    return (
+        <group ref={linesRef}>
+            {/* Subtle connecting lines */}
+            <mesh position={[3, 1, -2]} rotation={[0, 0, Math.PI / 6]}>
+                <boxGeometry args={[3, 0.005, 0.005]} />
+                <meshBasicMaterial color="#1e40af" transparent opacity={0.2} />
+            </mesh>
+            <mesh position={[4, -1, -3]} rotation={[0, 0, -Math.PI / 8]}>
+                <boxGeometry args={[2.5, 0.005, 0.005]} />
+                <meshBasicMaterial color="#1e40af" transparent opacity={0.15} />
+            </mesh>
+        </group>
     );
 }
 
 function Scene() {
     return (
         <>
-            <PerspectiveCamera makeDefault position={[0, 0, 10]} fov={55} />
-            <ambientLight intensity={0.02} />
+            <PerspectiveCamera makeDefault position={[0, 0, 8]} fov={55} />
+            <ambientLight intensity={0.4} />
+            <pointLight position={[5, 5, 5]} intensity={0.6} color="#3b82f6" />
+            <pointLight position={[-5, -3, 3]} intensity={0.3} color="#8b5cf6" />
 
-            {/* Galaxies spread across full screen */}
-            <Galaxy position={[4, 1.5, -6]} scale={1.3} rotationSpeed={0.0003} tilt={[0.5, 0, 0.2]} />
-            <Galaxy position={[-5, -1, -10]} scale={1.0} rotationSpeed={0.00025} tilt={[0.4, 0.3, 0]} />
-            <Galaxy position={[0, 3, -15]} scale={0.7} rotationSpeed={0.0004} tilt={[0.7, 0.1, 0.1]} />
-            <Galaxy position={[-3, -3, -8]} scale={0.6} rotationSpeed={0.00035} tilt={[0.3, 0.5, 0.2]} />
-            <Galaxy position={[6, -2, -12]} scale={0.5} rotationSpeed={0.00045} tilt={[0.6, 0.2, 0.3]} />
+            {/* Floating code blocks - positioned on right side */}
+            <CodeBlock position={[4, 1.5, -1]} rotation={[0.1, -0.3, 0.05]} scale={0.9} delay={0} />
+            <CodeBlock position={[3, -0.5, -2]} rotation={[-0.05, -0.2, -0.05]} scale={0.7} delay={1} />
+            <CodeBlock position={[5, -1.5, -3]} rotation={[0.08, -0.4, 0.03]} scale={0.6} delay={2} />
 
-            <ShimmeringStars />
-            <CosmicDust />
-            <CosmicWaves />
-            <LightParticles />
+            {/* React atoms */}
+            <ReactAtom position={[2, 2, 0]} scale={0.8} />
+            <ReactAtom position={[5, 0, -1]} scale={0.6} />
+            <ReactAtom position={[3.5, -2, -0.5]} scale={0.5} />
+
+            <ConnectionLines />
+            <BackgroundParticles />
 
             <EffectComposer>
-                <Bloom luminanceThreshold={0.6} luminanceSmoothing={0.9} intensity={0.7} radius={0.4} />
-                <Vignette offset={0.25} darkness={0.75} />
+                <Bloom
+                    luminanceThreshold={0.5}
+                    luminanceSmoothing={0.9}
+                    intensity={0.8}
+                    radius={0.5}
+                />
+                <Vignette offset={0.3} darkness={0.6} />
             </EffectComposer>
         </>
     );
 }
 
-function CosmicUniverseComponent() {
+function ReactComponentsVisual() {
     return (
         <div className="w-full h-[550px] relative">
             <Canvas
-                style={{ background: "#000000" }}
-                gl={{ antialias: true, alpha: false, powerPreference: "high-performance" }}
+                style={{ background: "transparent" }}
+                gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
                 dpr={[1, 2]}
             >
                 <Suspense fallback={null}>
@@ -280,4 +226,4 @@ function CosmicUniverseComponent() {
     );
 }
 
-export const MillionDollarVisual = memo(CosmicUniverseComponent);
+export const MillionDollarVisual = memo(ReactComponentsVisual);
