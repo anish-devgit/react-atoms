@@ -9,15 +9,15 @@ export function LoadingScreen() {
     const [stage, setStage] = useState<'loading' | 'transitioning' | 'done'>('loading');
 
     useEffect(() => {
-        // Faster loading - 1 second
+        // 2 second loading duration
         const loadingTimer = setTimeout(() => {
             setStage('transitioning');
-        }, 1000);
+        }, 2000);
 
         const transitionTimer = setTimeout(() => {
             setStage('done');
             setIsLoading(false);
-        }, 1600);
+        }, 2800); // 2000ms loading + 800ms transition
 
         return () => {
             clearTimeout(loadingTimer);
@@ -25,18 +25,26 @@ export function LoadingScreen() {
         };
     }, []);
 
-    // Calculate position to move logo to (top-left where navbar logo is)
-    const getTargetPosition = () => {
+    // Calculate exact navbar position
+    const getNavbarPosition = () => {
         if (typeof window === 'undefined') return { x: 0, y: 0 };
 
-        // Navbar logo position: approximately 24px from left, 16-20px from top
-        const targetX = -(window.innerWidth / 2 - 60); // Move to left side
-        const targetY = -(window.innerHeight / 2 - 28); // Move to top
+        // Navbar logo is at: ~60px from left (4px padding + ~28px logo + gap), ~28px from top
+        const viewportCenterX = window.innerWidth / 2;
+        const viewportCenterY = window.innerHeight / 2;
 
-        return { x: targetX, y: targetY };
+        // Target position (navbar logo position)
+        const navbarX = 60; // approximate left position of navbar logo
+        const navbarY = 28; // approximate top position
+
+        // Calculate offset from center
+        const offsetX = navbarX - viewportCenterX;
+        const offsetY = navbarY - viewportCenterY;
+
+        return { x: offsetX, y: offsetY };
     };
 
-    const targetPos = getTargetPosition();
+    const navbarPos = getNavbarPosition();
 
     return (
         <AnimatePresence>
@@ -46,50 +54,48 @@ export function LoadingScreen() {
                     initial={{ opacity: 1 }}
                     animate={{ opacity: stage === 'transitioning' ? 0 : 1 }}
                     exit={{ opacity: 0 }}
-                    transition={{ duration: 0.6, ease: "easeInOut" }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
                 >
-                    <motion.div
-                        className="fixed top-1/2 left-1/2 flex items-center gap-2.5"
-                        style={{ x: '-50%', y: '-50%' }}
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={
-                            stage === 'loading'
-                                ? {
-                                    opacity: 1,
-                                    scale: 1,
-                                    x: '-50%',
-                                    y: '-50%'
-                                }
-                                : {
-                                    opacity: 1,
-                                    scale: 1,
-                                    x: targetPos.x,
-                                    y: targetPos.y
-                                }
-                        }
-                        transition={{
-                            duration: stage === 'loading' ? 0.5 : 0.6,
-                            ease: [0.16, 1, 0.3, 1],
-                            delay: stage === 'loading' ? 0.1 : 0
-                        }}
-                    >
-                        {/* Atomic Logo - Same size as navbar (28px) */}
+                    <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                         <motion.div
-                            animate={{ rotate: stage === 'loading' ? 360 : 0 }}
+                            className="flex items-center gap-4"
+                            animate={
+                                stage === 'loading'
+                                    ? {
+                                        x: 0,
+                                        y: 0,
+                                        scale: 1
+                                    }
+                                    : {
+                                        x: navbarPos.x,
+                                        y: navbarPos.y,
+                                        scale: 0.44 // Scale from 64px to 28px (28/64 = 0.4375)
+                                    }
+                            }
                             transition={{
-                                duration: 2,
-                                repeat: stage === 'loading' ? Infinity : 0,
-                                ease: "linear"
+                                duration: stage === 'loading' ? 0 : 0.8,
+                                ease: [0.16, 1, 0.3, 1],
+                                delay: 0
                             }}
                         >
-                            <AtomicLogo size={28} className="text-white" />
-                        </motion.div>
+                            {/* Atomic Logo - Large on loading (64px), scales to navbar size (28px) */}
+                            <motion.div
+                                animate={{ rotate: stage === 'loading' ? 360 : 0 }}
+                                transition={{
+                                    duration: 3,
+                                    repeat: stage === 'loading' ? Infinity : 0,
+                                    ease: "linear"
+                                }}
+                            >
+                                <AtomicLogo size={64} className="text-white" />
+                            </motion.div>
 
-                        {/* Text - Same as navbar: text-base font-semibold */}
-                        <span className="text-base font-semibold text-white">
-                            ReactAtoms
-                        </span>
-                    </motion.div>
+                            {/* Text - Large on loading (text-5xl), matches navbar when scaled */}
+                            <h1 className="text-5xl font-semibold text-white whitespace-nowrap">
+                                ReactAtoms
+                            </h1>
+                        </motion.div>
+                    </div>
                 </motion.div>
             )}
         </AnimatePresence>
