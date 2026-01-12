@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Copy, Check } from "lucide-react";
+import Link from "next/link";
 
 type TabType = "react" | "tailwind";
 
@@ -245,14 +246,18 @@ export default function WelcomePage() {
                                     Beautiful components that ship in seconds.
                                     Copy, paste, and start building your product.
                                 </motion.p>
-                                <motion.button
+                                <motion.div
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.7 }}
-                                    className="px-6 py-3 bg-white text-black rounded-lg font-medium hover:bg-gray-100 transition-colors"
                                 >
-                                    Get Started
-                                </motion.button>
+                                    <Link
+                                        href="/components"
+                                        className="inline-block px-6 py-3 bg-white text-black rounded-lg font-medium hover:bg-gray-100 transition-colors"
+                                    >
+                                        Get Started
+                                    </Link>
+                                </motion.div>
                             </div>
                         </div>
                     </div>
