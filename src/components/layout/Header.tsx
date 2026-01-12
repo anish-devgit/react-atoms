@@ -10,6 +10,7 @@ import { AtomicLogo } from "@/components/ui/AtomicLogo";
 const navLinks = [
     { href: "/", label: "Home" },
     { href: "/components", label: "Components" },
+    { href: "/partners", label: "Partners" },
 ];
 
 export function Header() {
@@ -85,17 +86,23 @@ export function Header() {
                             Docs
                         </Link>
 
-                        {/* GitHub Star CTA - Gradient Pill (Desktop) */}
+                        {/* GitHub Star CTA - Dark Theme (Desktop) */}
                         <a
                             href="https://github.com/anish-devgit/react-atoms"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="hidden md:flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-accent to-accent-secondary text-white text-sm font-medium transition-all duration-200 hover:shadow-lg hover:shadow-accent/25 hover:scale-[1.02]"
+                            className="hidden md:flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white text-sm font-medium transition-all duration-200 hover:bg-white/10 hover:border-white/20 group relative"
+                            title="Star on GitHub"
                         >
-                            <Star className="w-3.5 h-3.5 fill-current" />
+                            <Star className="w-3.5 h-3.5 transition-all duration-150 group-hover:fill-current group-hover:scale-105" />
                             <span>Star</span>
-                            <span className="px-1.5 py-0.5 text-[10px] font-semibold rounded-full bg-white/20">
+                            <span className="px-1.5 py-0.5 text-[10px] font-semibold rounded-full bg-white/10">
                                 1.2k
+                            </span>
+
+                            {/* Subtle Tooltip */}
+                            <span className="absolute -bottom-10 left-1/2 -translate-x-1/2 px-2.5 py-1 bg-black/90 text-white text-xs rounded-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-150 pointer-events-none">
+                                Star on GitHub
                             </span>
                         </a>
 
@@ -159,7 +166,7 @@ export function Header() {
                                     href="https://github.com/anish-devgit/react-atoms"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="flex items-center justify-center gap-2 px-4 py-3 mt-2 rounded-xl bg-gradient-to-r from-accent to-accent-secondary text-white font-medium"
+                                    className="flex items-center justify-center gap-2 px-4 py-3 mt-2 rounded-xl bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 hover:border-white/20 transition-all"
                                 >
                                     <Github className="w-4 h-4" />
                                     Star on GitHub

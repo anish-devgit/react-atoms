@@ -127,9 +127,6 @@ function AnimateUIStyleVisual() {
                     <Scene />
                 </Suspense>
             </Canvas>
-
-            {/* Component cards overlay */}
-            <ComponentCardsOverlay />
         </div>
     );
 }
